@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.user.dao.HtUserDao" >
+<!-- Result Map com.qtz.ht.user.vo.HtUser-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.user.vo.HtUser" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="busi_id"  property="busiId"/> 
+	 <result column="account"  property="account"/> 
+	 <result column="password"  property="password"/> 
+	 <result column="real_name"  property="realName"/> 
+	 <result column="head_portrait"  property="headPortrait"/> 
+	 <result column="user_type"  property="userType"/> 
+	 <result column="sex"  property="sex"/> 
+	 <result column="crtime"  property="crtime"/> 
+	 <result column="crname"  property="crname"/> 
+	 <result column="last_login"  property="lastLogin"/> 
+	
+</resultMap>
+
+<!-- ht_user table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.busi_id,t.account,t.password,t.real_name,t.head_portrait,t.user_type,t.sex,t.crtime,t.crname,t.last_login
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="busiId != null  ">
+		 and t.busi_id=#{busiId}
+	</if>
+	<if test="account != null  and account != '' ">
+		 and t.account=#{account}
+	</if>
+	<if test="password != null  and password != '' ">
+		 and t.password=#{password}
+	</if>
+	<if test="realName != null  and realName != '' ">
+		 and t.real_name=#{realName}
+	</if>
+	<if test="headPortrait != null  and headPortrait != '' ">
+		 and t.head_portrait=#{headPortrait}
+	</if>
+	<if test="userType != null  ">
+		 and t.user_type=#{userType}
+	</if>
+	<if test="sex != null  ">
+		 and t.sex=#{sex}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+	<if test="crname != null  ">
+		 and t.crname=#{crname}
+	</if>
+	<if test="lastLogin != null  ">
+		 and t.last_login=#{lastLogin}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_user(dm_id,busi_id,account,password,real_name,head_portrait,user_type,sex,crtime,crname,last_login)
+ values(#{dmId},#{busiId},#{account},#{password},#{realName},#{headPortrait},#{userType},#{sex},#{crtime},#{crname},#{lastLogin})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_user(dm_id,busi_id,account,password,real_name,head_portrait,user_type,sex,crtime,crname,last_login) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.busiId},#{item.account},#{item.password},#{item.realName},#{item.headPortrait},#{item.userType},#{item.sex},#{item.crtime},#{item.crname},#{item.lastLogin}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_user where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_user where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_user where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_user set busi_id=#{busiId},account=#{account},password=#{password},real_name=#{realName},head_portrait=#{headPortrait},user_type=#{userType},sex=#{sex},crtime=#{crtime},crname=#{crname},last_login=#{lastLogin} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_user set 
+	<trim  suffixOverrides="," >
+	<if test="busiId != null  ">
+		busi_id=#{busiId},
+	</if>
+	<if test="account != null  and account != '' ">
+		account=#{account},
+	</if>
+	<if test="password != null  and password != '' ">
+		password=#{password},
+	</if>
+	<if test="realName != null  and realName != '' ">
+		real_name=#{realName},
+	</if>
+	<if test="headPortrait != null  and headPortrait != '' ">
+		head_portrait=#{headPortrait},
+	</if>
+	<if test="userType != null  ">
+		user_type=#{userType},
+	</if>
+	<if test="sex != null  ">
+		sex=#{sex},
+	</if>
+	<if test="crtime != null  ">
+		crtime=#{crtime},
+	</if>
+	<if test="crname != null  ">
+		crname=#{crname},
+	</if>
+	<if test="lastLogin != null  ">
+		last_login=#{lastLogin},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商户信息表 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_user t where t.dm_id = #{dmId}
+</select>
+
+<!-- 用户登录接口 -->
+<select id="getLoginVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_user t where t.user_type = #{userType} and t.password = #{password} and t.account = #{account}
+</select>
+
+<!-- 商户信息表 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_user t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询商户信息表列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_user t 
+	<include refid="Example_Where_Clause"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户信息表列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_user t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

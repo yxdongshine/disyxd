@@ -60,4 +60,36 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+  
+      <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <!--默认激活开发配制-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <filters>
+                    <filter>src/main/filters/dev.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>test</id>
+            <build>
+                <filters>
+                    <filter>src/main/filters/test.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <build>
+                <filters>
+                    <filter>src/main/filters/pro.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
 </project>
