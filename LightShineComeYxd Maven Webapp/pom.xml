@@ -85,6 +85,12 @@
 	    <artifactId>spring-web</artifactId>
 	    <version>4.3.2.RELEASE</version>
 	</dependency>
+	  <!--依赖底层核心数据连接包  -->
+    <dependency>
+       <groupId>LightShineComeCore</groupId>
+	  <artifactId>LightShineComeCoreYxd</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+    </dependency>
       <!--依赖API包解析  -->
     <dependency>
       <groupId>LightShineComeSessionApi</groupId>

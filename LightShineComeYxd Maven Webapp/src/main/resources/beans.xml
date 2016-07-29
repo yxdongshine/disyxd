@@ -1,96 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
-    		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
-			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
-			default-autowire="byName" default-lazy-init="false">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+		<!-- Spring getBean定义 -->
+	<bean id="springContextHolder" class="com.mall.core.common.SpringContextHolder" lazy-init="false"/>
+	<mvc:resources mapping="*.html" location="/"/>
+    <!-- Serve static content-->
+    <mvc:default-servlet-handler/>
+<!-- 	<bean class="com.qtz.ht.supplier.config.SwaggerConfig" /> -->
+	
+	<!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->  
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">  
+	    <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>  
+	    <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->  
+	    <property name="validationMessageSource" ref="messageSource"/>  
+	</bean>  
+	  
+	<!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->  
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
+	    <property name="basenames">  
+	        <list>  
+	            <!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找  -->  
+	            <value>classpath:config/messages</value>  
+<!-- 	            <value>classpath:org/hibernate/validator/ValidationMessages</value>   -->
+	        </list>  
+	    </property>  
+	    <property name="useCodeAsDefaultMessage" value="false"/>  
+	    <property name="defaultEncoding" value="UTF-8"/>  
+	    <property name="cacheSeconds" value="60"/>  
+	</bean>
+	<!-- 拦截器配置 -->
 
-	<!-- 属性文件读入 -->
-	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:config/jdbc.properties</value>
-			</list>
-		</property>
-	</bean>
+<!-- 	 <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/v?.?/**" />
+			<bean class="com.qtz.ht.supplier.interceptor.SecurityInterceptor">
+				<property name="excludeUrls">
+					<list value-type="java.lang.String">
+						<value>/.*.html</value>  
+						<value>/v1.*/logout</value>
+						<value>/v1.*/login</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
 	
-<!-- 数据库连接池 配置  -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
-	    <property name="url" value="${jdbc.url}" />
-	    <property name="username" value="${jdbc.username}" />
-	    <property name="password" value="${jdbc.password}" />
-	    <property name="filters" value="stat" />
-	    <property name="maxActive" value="10" />
-	    <property name="initialSize" value="1" />
-	    <property name="maxWait" value="60000" />
-	    <property name="minIdle" value="1" />
-	    <property name="timeBetweenEvictionRunsMillis" value="3000" />
-	    <property name="minEvictableIdleTimeMillis" value="300000" />
-		<property name="validationQuery" value="SELECT 'x'" />
-	    <property name="testWhileIdle" value="true" />
-	    <property name="testOnBorrow" value="false" />
-	    <property name="testOnReturn" value="false" />
-	    <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
-	</bean>
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.qtz.ht.app.controller"/>
+	<!-- 引入dubbo文件 -->
+	<import resource="dubbo.xml"/>
 
-<!--mybaits 集成配置 -->
-  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	 <property name="dataSource" ref="dataSource"/>
-	 <property name="mapperLocations" value="classpath:mybaits/*.xml" />
-  </bean>
-  
-  
-  
-<!-- 配置Jdbc模板 -->
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	
-<!-- 注解的配置  -->
-  <context:component-scan base-package="com.qtz_ht_timer">
-  	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-  </context:component-scan>
-<!-- start 日志aop 拦截器 -->
-	<!-- service日志记录器 -->
-	<bean id="loggerService" class="com.mall.core.aop.LoggerServiceAop" />
-<!--事务的配置-->
-	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">     
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-  <tx:advice id="userTxAdvice" transaction-manager="transactionManager">
-    <tx:attributes>
-	  <tx:method name="add*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-	  <tx:method name="del*" propagation="REQUIRED" read-only="false"	rollback-for="java.lang.Exception"/>
-	  <tx:method name="mod*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-	  <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-	  <tx:method name="compute*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-      
-      <tx:method name="find*" propagation="SUPPORTS"/>
-      <tx:method name="get*" propagation="SUPPORTS"/>
-      <tx:method name="select*" propagation="SUPPORTS"/>
-      <tx:method name="query*" propagation="SUPPORTS"/>
-    </tx:attributes>
-  </tx:advice>
-  
-	<!--把事务控制在Service层 -->
-	<aop:config>
-		<aop:pointcut id="pc" expression="execution(* com.qtz_ht_timer.service.impl..*.*(..))"/>
- 		<aop:advisor pointcut-ref="pc" advice-ref="userTxAdvice" order="101"/>
-		<!-- service日志通知   -->
-		<aop:aspect id="loggerServiceAspect" ref="loggerService" order="100">
-			<aop:around method="record" pointcut="execution(* com.qtz_ht_timer.service.impl..*.*(..))"/>
-		</aop:aspect>
-	</aop:config>
-	
- 	<!-- 使用annotation定义事务 -->
- 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-	
 </beans>
