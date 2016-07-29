@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>LightShineComeSession</groupId>
+  <artifactId>LightShineComeSessionYxd</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>LightShineComeSessionYxd</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+<repositories>
+ 
+	   <repository>
+	            <id>maven-central</id>
+	            <name>maven-central</name>
+	            <url>http://127.0.0.1:8081/repository/yxdGameRepository/</url>
+	            <snapshots>
+	                <enabled>true</enabled>
+	            </snapshots>
+	            <releases>
+	                <enabled>true</enabled>
+	            </releases>
+	        </repository>
+	  </repositories>
+	  <distributionManagement>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Nexus Snapshot</name>
+            <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>nexus</id>
+            <name>Nexus Sites</name>
+            <url>dav:http://127.0.0.1:8081/repository/maven-snapshots/</url>
+        </site>
+    </distributionManagement> 
+    
+  <dependencies>
+  <!--依赖底层核心数据连接包  -->
+    <dependency>
+       <groupId>LightShineComeCore</groupId>
+	  <artifactId>LightShineComeCoreYxd</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!--依赖API包解析  -->
+    <dependency>
+      <groupId>LightShineComeSessionApi</groupId>
+	  <artifactId>LightShineComeSessionApiYxd</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
