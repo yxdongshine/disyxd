@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>LightShineCome</groupId>
+  <artifactId>LightShineComeYxd</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>LightShineComeYxd</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+     <!-- 仓库配置 -->
+     <repositories>
+	        <repository>
+	            <id>maven-central</id>
+	            <name>maven-central</name>
+	            <url>http://127.0.0.1:8081/repository/yxdGameRepository/</url>
+	            <snapshots>
+	                <enabled>true</enabled>
+	            </snapshots>
+	            <releases>
+	                <enabled>true</enabled>
+	            </releases>
+	        </repository>
+	  </repositories>
+	  <distributionManagement>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Nexus Snapshot</name>
+            <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>nexus</id>
+            <name>Nexus Sites</name>
+            <url>dav:http://127.0.0.1:8081/repository/maven-snapshots/</url>
+        </site>
+    </distributionManagement> 
+    
+    <!-- 依赖项目木块  -->
+  <dependencies>
+  <!--spring依赖  -->
+  <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-beans</artifactId>
+	    <version>4.3.1.RELEASE</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>4.3.1.RELEASE</version>
+	</dependency>
+
+	
+  <!--dubble 依赖 -->
+  <!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
+	<!-- <dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>dubbo</artifactId>
+	    <version>2.5.3</version>
+	</dependency> -->
+  <!--duble 数据连接池依赖  -->
+  <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+	<!-- <dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	    <version>1.0.18</version>
+	</dependency> -->
+  <!--mybatis 依赖集成  -->
+  <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+<!-- 	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis-spring</artifactId>
+	    <version>1.2.2</version>
+	</dependency> -->
+  <!--spring web 依赖  -->
+  <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-web</artifactId>
+	    <version>4.3.2.RELEASE</version>
+	</dependency>
+      <!--依赖API包解析  -->
+    <dependency>
+      <groupId>LightShineComeSessionApi</groupId>
+	  <artifactId>LightShineComeSessionApiYxd</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!--依赖http server包  -->
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.1.0</version>
+	</dependency>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  
+  
+  <!-- 打包环境配置切换 -->
+  <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <!--默认激活开发配制-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <filters>
+                    <filter>src/main/filters/dev.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>test</id>
+            <build>
+                <filters>
+                    <filter>src/main/filters/test.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <build>
+                <filters>
+                    <filter>src/main/filters/pro.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
+</project>
