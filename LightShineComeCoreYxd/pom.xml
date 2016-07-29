@@ -121,6 +121,13 @@
 	    <artifactId>fastjson</artifactId>
 	    <version>1.2.7</version>
 	</dependency>
+	<!--面向切面依赖  -->
+	<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+	<dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjrt</artifactId>
+	    <version>1.8.9</version>
+	</dependency>
 	
     <dependency>
       <groupId>junit</groupId>
