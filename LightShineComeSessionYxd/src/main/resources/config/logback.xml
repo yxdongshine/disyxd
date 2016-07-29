@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd" scan="true"
+               scanPeriod="60 seconds" debug="false">
+    <contextName>restful</contextName>
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}]>>%-5p>>[%m]-[%c]-%-4r[%t]%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log4j.File}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log4j.File}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <pattern>[%d{HH:mm:ss.SSS}]>>%-5p>>[%m]-[%c]-%-4r[%t]%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="org.apache" level="warn"/>
+    <logger name="org.springframework" level="warn"/>
+    <root level="info">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="logfile"/>
+    </root>
+</configuration>
