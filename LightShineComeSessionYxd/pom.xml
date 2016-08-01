@@ -57,9 +57,16 @@
   <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
 	<dependency>
 	    <groupId>com.alibaba</groupId>
-	    <artifactId>druid</artifactId>
-	    <version>1.0.18</version>
+	    <artifactId>dubbo</artifactId>
+	    <version>2.5.3</version>
+	    <exclusions>  
+	   <exclusion>  
+	    <artifactId>spring</artifactId>  
+	    <groupId>org.springframework</groupId>  
+	   </exclusion>  
+	  </exclusions>
 	</dependency>
+	
 	<!--spring 植入器  -->
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
 		<dependency>
