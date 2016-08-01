@@ -5,8 +5,8 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 	<!-- log文件保存到web应用服务器的bin目录下,每个文件最大为10MB,支持10个文件 E:\\logs\\logs -->
 	<appender name="App" class="org.apache.log4j.RollingFileAppender">
-		<param name="threshold" value="${LOG_LEVEL}" />
-		<param name="File" value="${LOG_FILE}" />
+		<param name="threshold" value="dubug" />
+		<param name="File" value="F:\\app_web.log" />
 		<param name="MaxFileSize" value="3MB" />
 		<param name="MaxBackupIndex" value="100" />
 		<param name="append" value="true" />
@@ -16,8 +16,8 @@
 		</layout>
 	</appender>
 	<appender name="App_day" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="threshold" value="${LOG_LEVEL}" />
-		<param name="File" value="${LOG_FILE}" />
+		<param name="threshold" value="dubug" />
+		<param name="File" value="F:\\app_web.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
 		<param name="append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">

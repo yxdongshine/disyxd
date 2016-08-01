@@ -23,7 +23,7 @@ public class LoginControll {
 	protected static final String htSession_cookie_path = "/";
 	protected static LogTool log = LogTool.getInstance(LoginControll.class);
 	@Resource(name="htUserServiceImpl")
-	private HtUserService htUserService = null;
+	private HtUserService htUserService;
 	
 	/** 
 	* ¡¾µÇÂ¼¡¿ajax
