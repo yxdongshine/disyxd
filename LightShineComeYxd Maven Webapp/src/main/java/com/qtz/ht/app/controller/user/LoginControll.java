@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.common.json.JSONObject;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.mall.core.common.response.RespJsonPHandler;
+import com.mall.core.exception.DaoException;
 import com.mall.core.exception.ServiceException;
 import com.mall.core.log.LogTool;
 import com.qtz.ht.user.service.HtUserService;
+import com.qtz.ht.user.vo.HtUser;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +40,7 @@ public class LoginControll {
 			boolean isLogin = htUserService.login(account, pwd);//登录后生成新session
 			JSONObject result = new JSONObject();
 			result.put("isLogin", isLogin);
+		System.out.println(req.getLocalAddr());
 			RespJsonPHandler.respOK(result, resp,req);
 		}catch (ServiceException e) {
 			log.error("网络错误", e);
@@ -48,5 +51,26 @@ public class LoginControll {
 		}
 	}
 	
-	
+	@RequestMapping(value="register")
+	public void register(@RequestParam String account,@RequestParam String pwd,HttpServletResponse resp,HttpServletRequest req) throws IOException {
+		try {
+			HtUser htuser =null;
+			try {
+				htuser = htUserService.addUserVo(account, pwd);
+			} catch (DaoException e) {
+				// TODO Auto-generated catch block
+				RespJsonPHandler.respError(-1, "数据库异常", resp,req);
+			}//登录后生成新session
+			JSONObject result = new JSONObject();
+			result.put("htuser", htuser);
+		System.out.println(req.getLocalAddr());
+			RespJsonPHandler.respOK(result, resp,req);
+		}catch (ServiceException e) {
+			log.error("网络错误", e);
+			RespJsonPHandler.respError(e.getErrorType(), e.getErrorTitle(), resp,req);
+		}catch(RpcException e){
+			log.error("网络错误", e);
+			RespJsonPHandler.respError(-1, "连接异常，请重试", resp,req);
+		}
+	}
 }
