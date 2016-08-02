@@ -1,6 +1,7 @@
 package com.qtz.ht.user.service;
 
 import com.alibaba.dubbo.rpc.RpcException;
+import com.mall.core.exception.DaoException;
 import com.mall.core.exception.ServiceException;
 import com.mall.core.service.BaseService;
 import com.qtz.ht.user.vo.HtUser;
@@ -53,6 +54,12 @@ public interface HtUserService extends BaseService<HtUser,Long> {
 	HtUser getLoginVo(String account, String password, int userType) throws ServiceException;
 
 	HtUser findVo(Long userId) throws ServiceException;
-	
-
+	/**
+	 * 
+	 * @param account
+	 * @param password
+	 * @return
+	 * @throws ServiceException
+	 */
+    HtUser addUserVo(String account, String password)throws ServiceException, DaoException;
 }
