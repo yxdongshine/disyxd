@@ -35,4 +35,5 @@ public class HtUserDaoImpl extends MyBaitsDaoImpl<HtUser,Long> implements HtUser
 		}
 		return result;
 	}
+	
 }

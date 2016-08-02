@@ -20,5 +20,6 @@ public interface HtUserDao extends BizDao<HtUser,Long> {
 	*/
 	HtUser getLoginVo(String account, String password, int userType) throws DaoException;
 	
+	
 
 }

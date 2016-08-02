@@ -1,8 +1,10 @@
 package com.qtz.ht.user.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.alibaba.dubbo.rpc.RpcException;
+import com.mall.core.common.FifteenLongId;
 import com.mall.core.dao.BizDao;
 import com.mall.core.exception.DaoException;
 import com.mall.core.exception.ServiceException;
@@ -20,7 +22,8 @@ public class HtUserServiceImpl extends BaseServiceImpl<HtUser,Long> implements H
 	/**注入商户用户DAO接口类*/
 	@Resource(name="htUserDaoImpl")
     private HtUserDao dao;
-
+    @Autowired
+    private FifteenLongId FifteenLongIdImpl;
     
 	/** 
 	* 【取得】业务DAO对象
@@ -45,7 +48,7 @@ public class HtUserServiceImpl extends BaseServiceImpl<HtUser,Long> implements H
 			throw new ServiceException(7, "入参错误");
 		}
 		
-		HtUser user = this.getLoginVo(account,password,1);
+		HtUser user = this.getLoginVo(account,password,2);
 		if (null == user) {
 			throw new ServiceException(-1, "用户名或密码错误");
 		}
@@ -82,6 +85,19 @@ public class HtUserServiceImpl extends BaseServiceImpl<HtUser,Long> implements H
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
+	}
+	@Override
+	public HtUser addUserVo(String account, String password)
+			throws ServiceException, DaoException {
+		// TODO Auto- generated method stub
+        HtUser vo =new HtUser();
+        vo.setDmId(FifteenLongIdImpl.nextId());
+        vo.setAccount(account);
+        vo.setPassword(password);
+        vo.setUserType(2);
+        vo.setCrtime(System.currentTimeMillis());
+		HtUser userInDao=dao.addVo(vo);
+		return    userInDao;
 	}
 
 }
