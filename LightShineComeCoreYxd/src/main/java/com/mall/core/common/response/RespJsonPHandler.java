@@ -8,8 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.alibaba.dubbo.common.json.JSONArray;
-import com.alibaba.dubbo.common.json.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.mall.core.log.LogTool;
 import com.mall.core.vo.Pager;
 
@@ -178,7 +178,7 @@ public class RespJsonPHandler {
 			if (null != jsonpCallback) {
 				out.println(jsonpCallback + "("+JsonUtil.toCompatibleJSON(json) + ")");//返回jsonp格式数据  
 			}else{
-				out.println(JsonUtil.toCompatibleJSON(json));
+				out.println(JsonUtil.toCompatibleJSON(json,null).toString());
 			}
 			out.flush();  
 			out.close();
