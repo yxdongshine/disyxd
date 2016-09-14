@@ -1,6 +1,7 @@
 
 package LightShineComeSession.LightShineComeSessionYxd;  
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -24,6 +25,17 @@ public class MainTest {
         java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyyMMdd");  
         String sb=format.format(gc.getTime());  
         System.out.println(sb);  
+        
+        
+        /***
+         * 
+         */
+        
+        Date today = new Date();
+        Calendar c=Calendar.getInstance();
+        c.setTime(today);
+        int weekday=c.get(Calendar.DAY_OF_WEEK);
+        System.out.println(weekday);
 	}
 
 }

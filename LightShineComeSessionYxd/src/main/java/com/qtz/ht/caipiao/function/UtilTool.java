@@ -1,6 +1,7 @@
 
 package com.qtz.ht.caipiao.function;  
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -28,6 +29,27 @@ public class UtilTool {
         java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyyMMdd");  
         dateStr=format.format(gc.getTime());  
 		return dateStr;
+	}
+	
+	public static int dayOfWeek(long times){
+        Date today = new Date(times);
+        Calendar c=Calendar.getInstance();
+        c.setTime(today);
+        int weekday=c.get(Calendar.DAY_OF_WEEK);
+        return weekday;
+	}
+	
+	public static int isPullCaiPiaoData(long times){
+		int isPull = 0;
+		int day=dayOfWeek(times);
+		if(day == 2){
+			isPull = 1;
+		}else if (day == 4){
+			isPull = 1;
+		}else if (day == 7){
+			isPull = 1;
+		}
+        return isPull;
 	}
 }
   

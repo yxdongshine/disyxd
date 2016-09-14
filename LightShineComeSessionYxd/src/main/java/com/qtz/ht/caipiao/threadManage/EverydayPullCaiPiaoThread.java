@@ -22,7 +22,7 @@ public class EverydayPullCaiPiaoThread implements Runnable{
 	private String dataStr;//传入的彩票日期
 	@Autowired
 	CpiaoPullData cpiaoPullData;//拉取数据
-	public EverydayPullCaiPiaoThread(String dataStr) {
+	public void everydayPullCaiPiaoThread(String dataStr) {
 		// TODO Auto-generated constructor stub
 		this.dataStr = dataStr;
 	}

@@ -19,19 +19,35 @@ import com.qtz.ht.caipiao.function.CpiaoPullData;
 public class CaiPiaoThread implements Runnable{
 
 	@Autowired
-	CpiaoPullData cpiaoPullData;//拉取数据
+	CpiaoPullData cpiaoPullData ;
 	private int count;//统计拉取的次数
-	public CaiPiaoThread(int count) {
+	private String date;//日期格式
+	
+	public void caiPiaoThread(int count,String date) {
 		// TODO Auto-generated constructor stub
-		count =count;
+		this.count =count;
+		this.date =date;
 	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		System.out.println("***第"+count+"次拉取数据开始");
-		cpiaoPullData.makeCpiaoData(count,null);
+		cpiaoPullData.makeCpiaoData(count,date);
 		System.out.println("***第"+count+"次拉取数据结束");
 	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 
+	
 }
   

@@ -71,5 +71,22 @@ public class CaiPiaServiceImpl extends BaseServiceImpl<CpiaoYxd,Long> implements
 		}
 	}
 
+	@Override
+	public int dataCount() throws ServiceException {
+		// TODO Auto-generated method stub
+		int count = 0;
+		CpiaoYxd cp= new CpiaoYxd();
+		List<CpiaoYxd> cpList = null;
+		try {
+			cpList = dao.findList(cp);
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+		if(cpList!=null){
+			count= cpList.size();
+		}
+		return count;
+	}
+
 }
   

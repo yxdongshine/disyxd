@@ -25,13 +25,10 @@ import net.sf.json.JSONObject;
 
 
 import org.springframework.stereotype.Component;
-import org.w3c.dom.CDATASection;
 
 import com.mall.core.exception.ServiceException;
 import com.mall.core.log.LogTool;
 import com.qtz.ht.user.service.CaipiaoService;
-import com.qtz.ht.user.service.HtUserService;
-import com.qtz.ht.user.service.impl.HtUserServiceImpl;
 import com.qtz.ht.user.vo.CpiaoYxd;
 
 /** 
@@ -76,6 +73,9 @@ public class CpiaoPullData {
 		String urlAll = new StringBuffer(url).toString();
 		String charset = "UTF-8";
 		String jsonResult = get(urlAll, charset);//
+		if(jsonResult == null){
+			return;
+		}
 		JSONObject object = JSONObject.fromObject(jsonResult);//
 	//实例化彩票数据集合
 		List<CpiaoYxd> cpList = new ArrayList<CpiaoYxd>();
@@ -109,6 +109,7 @@ public class CpiaoPullData {
 		}
 	}
 	
+	
 	/**
 	 * 构建彩票数据实体
 	 * makeCpYxd:(). <br/> 
@@ -123,7 +124,30 @@ public class CpiaoPullData {
 	public CpiaoYxd makeCpYxd(Long dmid,String number,String dateLine){
 		CpiaoYxd cp= new CpiaoYxd();
 		cp.setDmId(dmid);
-		cp.setNumber(number);
+        //将number拆分成彩票数字
+		if(number!=null&&number.trim().length()>0){
+			String[] numStrArr = number.trim().split(",");
+			if(numStrArr!=null&&numStrArr.length>0){
+				for (int i = 0; i < numStrArr.length; i++) {
+					int numInDb = Integer.parseInt( numStrArr[i]);
+					if(i==0){
+						cp.setNumber1(numInDb);
+					}else if(i==1){
+						cp.setNumber2(numInDb);
+					}else if(i==2){
+						cp.setNumber3(numInDb);
+					}else if(i==3){
+						cp.setNumber4(numInDb);
+					}else if(i==4){
+						cp.setNumber5(numInDb);
+					}else if(i==5){
+						cp.setNumber6(numInDb);
+					}else if(i==6){
+						cp.setNumber7(numInDb);
+					}
+				}
+			}
+		}
 		cp.setDateline(dateLine);
 		
 		return cp;

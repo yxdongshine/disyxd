@@ -4,13 +4,19 @@
 <!-- Result Map com.qtz.ht.user.vo.HtUser-->
 <resultMap id="BaseResultMap" type="com.qtz.ht.user.vo.CpiaoYxd" >
 	 <result column="dm_id"  property="dmId"/> 
-	 <result column="number"  property="number"/> 
+	 <result column="number1"  property="number1"/> 
+	 <result column="number2"  property="number2"/>
+	 <result column="number3"  property="number3"/>
+	 <result column="number4"  property="number4"/>
+	 <result column="number5"  property="number5"/>
+	 <result column="number6"  property="number6"/>
+	 <result column="number7"  property="number7"/>
 	 <result column="dateline"  property="dateline"/>  
 </resultMap>
 
 <!-- ht_user table all fields -->
 <sql id="Base_Column_List" >
-	 t.dm_id,t.number,t.dateline
+	 t.dm_id,t.number1,t.number2,t.number3,t.number4,t.number5,t.number6,t.number7,t.dateline
 </sql>
 
 <!-- 查询条件 -->
@@ -19,8 +25,26 @@
 	<if test="dmId != null  ">
 		 and t.dm_id=#{dmId}
 	</if>
-	<if test="number != null  and number != ''  ">
-		 and t.number=#{number}
+	<if test="number1 != null  and number1 != ''  ">
+		 and t.number1=#{number1}
+	</if>
+	<if test="number2 != null  and number2 != ''  ">
+		 and t.number2=#{number2}
+	</if>
+	<if test="number3 != null  and number3 != ''  ">
+		 and t.number3=#{number3}
+	</if>
+	<if test="number4 != null  and number4 != ''  ">
+		 and t.number4=#{number4}
+	</if>
+	<if test="number5 != null  and number5 != ''  ">
+		 and t.number5=#{number5}
+	</if>
+	<if test="number6 != null  and number6 != ''  ">
+		 and t.number6=#{number6}
+	</if>
+	<if test="number7 != null  and number7 != ''  ">
+		 and t.number7=#{number7}
 	</if>
 	<if test="dateline != null  and dateline != '' ">
 		 and t.dateline=#{dateline}
@@ -30,15 +54,15 @@
 
 <!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
 <insert id="addVo" parameterType="Object" >
-  insert into yxd_cpiao(dm_id,number,dateline)
- values(#{dmId},#{number},#{dateline})
+  insert into yxd_cpiao(dm_id,t.number1,t.number2,t.number3,t.number4,t.number5,t.number6,t.number7,dateline)
+ values(#{dmId},#{number1},#{number2},#{number3},#{number4},#{number5},#{number6},#{number7},#{dateline})
 </insert>
 <!--批量插入记录 -->
 <insert id="addList" parameterType="java.util.List">
-  insert into yxd_cpiao(dm_id,number,dateline) values
+  insert into yxd_cpiao(dm_id,number1,number2,number3,number4,number5,number6,number7,dateline) values
    <foreach collection="list" item="item" index="index" separator=",">
 	  (
-	  	 #{item.dmId},#{item.number},#{item.dateline}
+	  	 #{item.dmId},#{item.number1},#{item.number2},#{item.number3},#{item.number4},#{item.number5},#{item.number6},#{item.number7},#{item.dateline}
 	  )
 	  </foreach> 
 </insert>
@@ -64,14 +88,32 @@
 
 <!-- 根据id，修改记录-->  
  <update id="modVo" parameterType="Object" >
-  update yxd_cpiao set number=#{number},dateline=#{dateline} where dm_id=#{dmId}
+  update yxd_cpiao set #{number1},#{number2},#{number3},#{number4},#{number5},#{number6},#{number7},dateline=#{dateline} where dm_id=#{dmId}
  </update>
  <!-- 修改记录，只修改只不为空的字段 -->
 <update id="modVoNotNull" parameterType="Object" >
 	update yxd_cpiao set 
 	<trim  suffixOverrides="," >
-	<if test="number != null  and number != '' ">
-		number=#{number},
+	<if test="number1 != null  and number1 != '' ">
+		number1=#{number1},
+	</if>
+	<if test="number2 != null  and number2 != '' ">
+		number2=#{number2},
+	</if>
+	<if test="number3 != null  and number3 != '' ">
+		number3=#{number3},
+	</if>
+	<if test="number4 != null  and number4 != '' ">
+		number4=#{number4},
+	</if>
+	<if test="number5 != null  and number5 != '' ">
+		number5=#{number5},
+	</if>
+	<if test="number6 != null  and number6 != '' ">
+		number6=#{number6},
+	</if>
+	<if test="number7 != null  and number7 != '' ">
+		number7=#{number7},
 	</if>
 	<if test="dateline != null  and dateline != '' ">
 		dateline=#{dateline},
