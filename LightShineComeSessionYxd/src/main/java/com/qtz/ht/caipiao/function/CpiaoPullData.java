@@ -23,12 +23,15 @@ import net.sf.json.JSONObject;
 
 
 
+
 import org.springframework.stereotype.Component;
 import org.w3c.dom.CDATASection;
 
 import com.mall.core.exception.ServiceException;
+import com.mall.core.log.LogTool;
 import com.qtz.ht.user.service.CaipiaoService;
 import com.qtz.ht.user.service.HtUserService;
+import com.qtz.ht.user.service.impl.HtUserServiceImpl;
 import com.qtz.ht.user.vo.CpiaoYxd;
 
 /** 
@@ -45,13 +48,15 @@ public class CpiaoPullData {
 
 	@Resource(name="caiPiaServiceImpl")
 	private CaipiaoService caiPiaService;
+	/**初始化日志对象*/
+	private static LogTool log = LogTool.getInstance(CpiaoPullData.class);
 	
 	public static final String NAME = "dlt";//彩票接口
 	public static final String UID = "552763";//用户编号
 	public static final String TOKEN = "2f82c6358d966ebf1a7c1830d03727b488fbde50";//用户token
 	
 	
-	public void makeCpiaoData(){
+	public void makeCpiaoData(int page,String date){
 
 		String name = "dlt";
 		String uid = "552763";
@@ -62,7 +67,12 @@ public class CpiaoPullData {
 		url += "&format=json";
 		url += "&uid=" + uid;
 		url += "&token=" + token;
-
+		if(page>0){
+			url += "&page=" + page;
+		}
+		if(date!=null&&date.trim().length()>0){//拼接日期
+			url += "&date=" + date.trim();
+		}
 		String urlAll = new StringBuffer(url).toString();
 		String charset = "UTF-8";
 		String jsonResult = get(urlAll, charset);//
@@ -81,6 +91,8 @@ public class CpiaoPullData {
 				outputStr += " number:" + number;
 				outputStr += " dateline:" + dateLine;
 				System.out.println(outputStr);
+				log.info("id:" + key+"##"+" number:" + number+"##"+" dateline:" + dateLine);
+				log.info(outputStr);
 				//构建彩票实体
 				CpiaoYxd cp = makeCpYxd(Long.parseLong(key), number, dateLine);
 				cpList.add(cp);

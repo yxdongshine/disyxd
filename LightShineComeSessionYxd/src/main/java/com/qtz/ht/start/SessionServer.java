@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.mall.core.cache.BaseProperties;
+import com.qtz.ht.caipiao.threadManage.ThreadPoolMan;
 
 public class SessionServer {
 
@@ -30,6 +31,9 @@ public class SessionServer {
 			String[] strings= BaseProperties.getBaseProperties("START_FILES").split(",");
 			new ClassPathXmlApplicationContext(strings);
 			log.warn("========SessionServer启动服务成功========");
+			ThreadPoolMan thm =new ThreadPoolMan();
+			thm.pollingPullCaipData();
+			log.warn("========拉取数据完成成功========");
 			while (true){
 				TimeUnit.HOURS.sleep(1);
 			}
