@@ -10,7 +10,7 @@
     
 	<dubbo:application name="LightShineComeYxd"/>
 	<!-- 使用multicast广播注册中心暴露发现服务地址 -->
-	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
+	<dubbo:registry protocol="zookeeper" address="120.25.252.172:2181" />
 	
 	<dubbo:reference interface="com.qtz.ht.user.service.HtUserService" id="htUserServiceImpl"  version="1.0"/>
 	
