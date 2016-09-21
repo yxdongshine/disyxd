@@ -14,6 +14,9 @@
 	<dubbo:protocol name="dubbo" port="-1" />
 	
 	<!-- 声明需要暴露的服务接口 -->
-	<!-- 用户 -->
+	<!-- 用户-->
 	<dubbo:service interface="com.qtz.ht.user.service.HtUserService" ref="htUserServiceImpl" version="1.0" timeout="3000" retries="0"/>
+	<!--彩票接口 -->
+	<dubbo:service interface="com.qtz.ht.user.service.CaipiaoService" ref="caiPiaServiceImpl" version="1.0" timeout="3000" retries="0"/>
+     
 </beans>

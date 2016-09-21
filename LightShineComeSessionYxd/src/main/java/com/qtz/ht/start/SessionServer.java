@@ -37,10 +37,12 @@ public class SessionServer {
 			ThreadPoolMan thm= SpringContextHolder.getBean("threadPoolMan");
 			//CaiPiaServiceImpl
 			CaiPiaServiceImpl cpsi= SpringContextHolder.getBean("caiPiaServiceImpl");
-			//if(cpsi.dataCount()<=0){
+			/*if(cpsi.dataCount()<=0){
 				thm.pollingPullCaipData();
-			//}
-			thm.pollingPullCaipDataByDay();
+			}*/
+			//运行统计
+			cpsi.getCaiPiaoStatistics();
+			//thm.pollingPullCaipDataByDay();
 			log.warn("========拉取数据完成成功========");
 			while (true){
 				TimeUnit.HOURS.sleep(1);

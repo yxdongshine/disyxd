@@ -72,13 +72,13 @@ public class ThreadPoolMan {
 		 Long dateTime = System.currentTimeMillis();
 		 while(true){
 			 dateTime=dateTime- UtilTool.DAY_TIME;//每次递减一天的时间
-			 if(UtilTool.isPullCaiPiaoData(dateTime)==1){//是该拉取
+			// if(UtilTool.isPullCaiPiaoData(dateTime)==1){//是该拉取
 				 count++;
 				 String date = UtilTool.formatDate(dateTime);
 				 ct.setCount(count);
 				 ct.setDate(date);
 				 this.addThread(ct);
-			 }
+			// }
 			 try {
 					Thread.currentThread().sleep(4000);
 				} catch (InterruptedException e) {
