@@ -21,5 +21,7 @@ public interface CaipiaoService extends BaseService<CpiaoYxd,Long> {
 	public void batchInsertCpiaoService(List<CpiaoYxd> cpList)throws ServiceException;
 	
 	public int dataCount()throws ServiceException;
+	
+	public String getCaiPiaoStatistics()throws ServiceException;
 }
   
