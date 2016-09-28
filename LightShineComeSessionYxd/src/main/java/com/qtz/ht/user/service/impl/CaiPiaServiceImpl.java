@@ -22,6 +22,7 @@ import com.mall.core.log.LogTool;
 import com.mall.core.service.impl.BaseServiceImpl;
 import com.qtz.ht.user.dao.CaiPiaoDao;
 import com.qtz.ht.user.service.CaipiaoService;
+import com.qtz.ht.user.service.ReadFileService;
 import com.qtz.ht.user.vo.CpiaoYxd;
 
 /** 
@@ -78,6 +79,8 @@ public class CaiPiaServiceImpl extends BaseServiceImpl<CpiaoYxd,Long> implements
 	 */
 	@Resource(name="caiPiaoDaoImpl")
     private CaiPiaoDao dao;
+	@Autowired
+	private ReadFileService readFileService;
 	/**
 	 * 自增长主键编号
 	 */
@@ -498,5 +501,15 @@ public class CaiPiaServiceImpl extends BaseServiceImpl<CpiaoYxd,Long> implements
 
 	  System.out.println("**number1**"+number1+"**number2**"+number2+"**number3**"+number3+"**number4**"+number4+"**number5**"+number5+"**number6**"+number6+"**number7**"+number7);
 	}
+
+	public ReadFileService getReadFileService() {
+		return readFileService;
+	}
+
+	public void setReadFileService(ReadFileService readFileService) {
+		this.readFileService = readFileService;
+	}
+	
+	
 }
   

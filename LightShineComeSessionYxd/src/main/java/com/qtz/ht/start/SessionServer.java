@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.mall.core.cache.BaseProperties;
 import com.mall.core.common.SpringContextHolder;
+import com.mall.core.exception.ServiceException;
 import com.qtz.ht.caipiao.threadManage.ThreadPoolMan;
 import com.qtz.ht.user.service.impl.CaiPiaServiceImpl;
 
@@ -40,9 +41,15 @@ public class SessionServer {
 			/*if(cpsi.dataCount()<=0){
 				thm.pollingPullCaipData();
 			}*/
+			//最后每一次调用的接口都进入数据库
+			try {
+				cpsi.batchInsertCpiaoService(cpsi.getReadFileService().loadScoreInfo("D:\\yxd.xlsx"));
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
 			//运行统计
 			cpsi.getCaiPiaoStatistics();
-			//thm.pollingPullCaipDataByDay();
+			thm.pollingPullCaipDataByDay();
 			log.warn("========拉取数据完成成功========");
 			while (true){
 				TimeUnit.HOURS.sleep(1);
