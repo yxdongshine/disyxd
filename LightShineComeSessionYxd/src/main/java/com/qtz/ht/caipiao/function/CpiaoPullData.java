@@ -107,6 +107,13 @@ public class CpiaoPullData {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
+		
+		//运行统计
+		try {
+			caiPiaService.getCaiPiaoStatistics();
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

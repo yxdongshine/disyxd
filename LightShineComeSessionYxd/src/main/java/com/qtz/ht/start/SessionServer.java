@@ -41,14 +41,14 @@ public class SessionServer {
 			/*if(cpsi.dataCount()<=0){
 				thm.pollingPullCaipData();
 			}*/
-			//最后每一次调用的接口都进入数据库
-			try {
-				cpsi.batchInsertCpiaoService(cpsi.getReadFileService().loadScoreInfo("D:\\yxd.xlsx"));
-			} catch (ServiceException e) {
-				e.printStackTrace();
+			if(cpsi.dataCount()<=0){
+				//最后每一次调用的接口都进入数据库
+				try {
+					cpsi.batchInsertCpiaoService(cpsi.getReadFileService().loadScoreInfo("D:\\yxd.xls"));
+				} catch (ServiceException e) {
+					e.printStackTrace();
+				}
 			}
-			//运行统计
-			cpsi.getCaiPiaoStatistics();
 			thm.pollingPullCaipDataByDay();
 			log.warn("========拉取数据完成成功========");
 			while (true){

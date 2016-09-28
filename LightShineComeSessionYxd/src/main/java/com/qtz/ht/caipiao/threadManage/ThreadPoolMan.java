@@ -102,7 +102,7 @@ public class ThreadPoolMan {
 			 if(UtilTool.isPullCaiPiaoData(dateTime)==1){//是该拉取
 				 String date = UtilTool.formatDate(dateTime);
 				 epcpt.setDataStr(date);
-				 this.addThread(ct);
+				 this.addThread(epcpt);
 			 }
 			 try {
 				Thread.currentThread().sleep(UtilTool.DAY_TIME);

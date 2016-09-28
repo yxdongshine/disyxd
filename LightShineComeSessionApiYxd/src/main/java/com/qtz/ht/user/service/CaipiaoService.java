@@ -22,6 +22,6 @@ public interface CaipiaoService extends BaseService<CpiaoYxd,Long> {
 	
 	public int dataCount()throws ServiceException;
 	
-	public String getCaiPiaoStatistics()throws ServiceException;
+	public List<Object> getCaiPiaoStatistics()throws ServiceException;
 }
   

@@ -13,6 +13,7 @@
 	<dubbo:registry protocol="zookeeper" address="120.25.252.172:2181" />
 	
 	<dubbo:reference interface="com.qtz.ht.user.service.HtUserService" id="htUserServiceImpl"  version="1.0"/>
+	<dubbo:reference interface="com.qtz.ht.user.service.CaipiaoService" id="caiPiaServiceImpl"  version="1.0"/>
 	
 	
 </beans>

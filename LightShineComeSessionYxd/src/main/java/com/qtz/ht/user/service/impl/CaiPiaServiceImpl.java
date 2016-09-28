@@ -51,7 +51,11 @@ public class CaiPiaServiceImpl extends BaseServiceImpl<CpiaoYxd,Long> implements
 		Map<Integer,Integer> no5 = new HashMap<Integer, Integer>(); 
 		Map<Integer,Integer> no6 = new HashMap<Integer, Integer>(); 
 		Map<Integer,Integer> no7 = new HashMap<Integer, Integer>(); 
-
+		/**
+		 * 兼容算法数列
+		 */
+		Map<Integer,Integer> before5Number = new HashMap<Integer, Integer>(); 
+		Map<Integer,Integer> last2Number = new HashMap<Integer, Integer>(); 
 	/**
 	 * 概率数据结构类	
 	 */
@@ -132,8 +136,9 @@ public class CaiPiaServiceImpl extends BaseServiceImpl<CpiaoYxd,Long> implements
 	}
 
 	@Override
-	public String getCaiPiaoStatistics() throws ServiceException {
+	public List<Object> getCaiPiaoStatistics() throws ServiceException {
 		// TODO Auto-generated method stub
+		List<Object> objectList = new ArrayList<Object>();
 		CpiaoYxd cp= new CpiaoYxd();
 		List<CpiaoYxd> cpList = null;
 		try {
@@ -161,10 +166,31 @@ public class CaiPiaServiceImpl extends BaseServiceImpl<CpiaoYxd,Long> implements
 				swichCount(no7, number7);
 			}
 		}
-		
+		/**
+		 * 计算最后两列数据
+		 */
+		sumLastMap(no6, no7);
 		recommendNumber();
+		objectList.add(before5Number);
+		objectList.add(last2Number);
+		return objectList;
+	}
 	
-		return null;
+	/**
+	 * 
+	 * sumLastMap:(). <br/> 
+	 * TODO(计算最后两列数据).<br/> 
+	 * 
+	 * @author yxd 
+	 * @param map1
+	 * @param map2
+	 */
+	public void sumLastMap(Map<Integer, Integer> map1,Map<Integer, Integer> map2){
+		for (Iterator iterator = map1.keySet().iterator(); iterator.hasNext();) {
+			Integer key = (Integer) iterator.next();
+
+			last2Number.put(key, map1.get(key)+map2.get(key));
+		}
 	}
 	
 	/**
@@ -201,7 +227,8 @@ public class CaiPiaServiceImpl extends BaseServiceImpl<CpiaoYxd,Long> implements
 			no5.put(i, 0);
 			no6.put(i, 0);
 			no7.put(i, 0);
-
+			before5Number.put(i, 0);
+			last2Number.put(i, 0);
 	    }
 	}
 	
@@ -219,142 +246,211 @@ public class CaiPiaServiceImpl extends BaseServiceImpl<CpiaoYxd,Long> implements
 		case 1:
 			noMap.put(1, noMap.get(1)+1);
 			allNumber.put(1, allNumber.get(1)+1);
+			before5Number.put(1, before5Number.get(1)+1);
 			break;
 		case 2:
 			noMap.put(2, noMap.get(2)+1);
 			allNumber.put(1, allNumber.get(2)+1);
+			before5Number.put(2, before5Number.get(2)+1);
+
 			break;
 		case 3:
 			noMap.put(3, noMap.get(3)+1);
 			allNumber.put(3, allNumber.get(3)+1);
+			before5Number.put(3, before5Number.get(3)+1);
+
 			break;
 		case 4:
 			noMap.put(4, noMap.get(4)+1);
 			allNumber.put(4, allNumber.get(4)+1);
+			before5Number.put(4, before5Number.get(4)+1);
+
 			break;
 		case 5:
 			noMap.put(5, noMap.get(5)+1);
 			allNumber.put(5, allNumber.get(5)+1);
+			before5Number.put(5, before5Number.get(5)+1);
+
 			break;
 		case 6:
 			noMap.put(6, noMap.get(6)+1);
 			allNumber.put(6, allNumber.get(6)+1);
+			before5Number.put(6, before5Number.get(6)+1);
+
 			break;
 		case 7:
 			noMap.put(7, noMap.get(7)+1);
 			allNumber.put(7, allNumber.get(7)+1);
+			before5Number.put(7, before5Number.get(7)+1);
+
 			break;
 		case 8:
 			noMap.put(8, noMap.get(8)+1);
 			allNumber.put(8, allNumber.get(8)+1);
+			before5Number.put(8, before5Number.get(8)+1);
+
 			break;
 		case 9:
 			noMap.put(9, noMap.get(9)+1);
 			allNumber.put(9, allNumber.get(9)+1);
+			before5Number.put(9, before5Number.get(9)+1);
+
 			break;
 		case 10:
 			noMap.put(10, noMap.get(10)+1);
 			allNumber.put(10, allNumber.get(10)+1);
+			before5Number.put(10, before5Number.get(10)+1);
+
 			break;
 		case 11:
 			noMap.put(11, noMap.get(11)+1);
 			allNumber.put(11, allNumber.get(11)+1);
+			before5Number.put(11, before5Number.get(11)+1);
+
 			break;
 		case 12:
 			noMap.put(12, noMap.get(12)+1);
 			allNumber.put(12, allNumber.get(12)+1);
+			before5Number.put(12, before5Number.get(12)+1);
+
 			break;
 		case 13:
 			noMap.put(13, noMap.get(13)+1);
 			allNumber.put(13, allNumber.get(13)+1);
+			before5Number.put(13, before5Number.get(13)+1);
+
 			break;
 		case 14:
 			noMap.put(14, noMap.get(14)+1);
 			allNumber.put(14, allNumber.get(14)+1);
+			before5Number.put(14, before5Number.get(14)+1);
+
 			break;
 		case 15:
 			noMap.put(15, noMap.get(15)+1);
 			allNumber.put(15, allNumber.get(15)+1);
+			before5Number.put(15, before5Number.get(15)+1);
+
 			break;
 		case 16:
 			noMap.put(16, noMap.get(16)+1);
 			allNumber.put(16, allNumber.get(16)+1);
+			before5Number.put(16, before5Number.get(16)+1);
+
 			break;
 		case 17:
 			noMap.put(17, noMap.get(17)+1);
 			allNumber.put(17, allNumber.get(17)+1);
+			before5Number.put(17, before5Number.get(17)+1);
+
 			break;
 		case 18:
 			noMap.put(18, noMap.get(18)+1);
 			allNumber.put(18, allNumber.get(18)+1);
+			before5Number.put(18, before5Number.get(18)+1);
+
 			break;
 		case 19:
 			noMap.put(19, noMap.get(19)+1);
 			allNumber.put(19, allNumber.get(19)+1);
+			before5Number.put(19, before5Number.get(19)+1);
+
 			break;
 		case 20:
 			noMap.put(20, noMap.get(20)+1);
 			allNumber.put(20, allNumber.get(20)+1);
+			before5Number.put(20, before5Number.get(20)+1);
+
 			break;
 		case 21:
 			noMap.put(21, noMap.get(21)+1);
 			allNumber.put(21, allNumber.get(21)+1);
+			before5Number.put(21, before5Number.get(21)+1);
+
 			break;
 		case 22:
 			noMap.put(22, noMap.get(22)+1);
 			allNumber.put(22, allNumber.get(22)+1);
+			before5Number.put(22, before5Number.get(22)+1);
+
 			break;
 		case 23:
 			noMap.put(23, noMap.get(23)+1);
 			allNumber.put(23, allNumber.get(23)+1);
+			before5Number.put(23, before5Number.get(23)+1);
+
 			break;
 		case 24:
 			noMap.put(24, noMap.get(24)+1);
 			allNumber.put(24, allNumber.get(24)+1);
+			before5Number.put(24, before5Number.get(24)+1);
+
 			break;
 		case 25:
 			noMap.put(25, noMap.get(25)+1);
 			allNumber.put(25, allNumber.get(25)+1);
+			before5Number.put(25, before5Number.get(25)+1);
+
 			break;
 		case 26:
 			noMap.put(26, noMap.get(26)+1);
 			allNumber.put(26, allNumber.get(26)+1);
+			before5Number.put(26, before5Number.get(26)+1);
+
 			break;
 		case 27:
 			noMap.put(27, noMap.get(27)+1);
 			allNumber.put(27, allNumber.get(27)+1);
+			before5Number.put(27, before5Number.get(27)+1);
+
 			break;
 		case 28:
 			noMap.put(28, noMap.get(28)+1);
 			allNumber.put(28, allNumber.get(28)+1);
+			before5Number.put(28, before5Number.get(28)+1);
+
 			break;
 		case 29:
 			noMap.put(29, noMap.get(29)+1);
 			allNumber.put(29, allNumber.get(29)+1);
+			before5Number.put(29, before5Number.get(29)+1);
+
 			break;
 		case 30:
 			noMap.put(30, noMap.get(30)+1);
 			allNumber.put(30, allNumber.get(30)+1);
+			before5Number.put(30, before5Number.get(30)+1);
+
 			break;
 		case 31:
 			noMap.put(31, noMap.get(31)+1);
 			allNumber.put(31, allNumber.get(31)+1);
+			before5Number.put(31, before5Number.get(31)+1);
+
 			break;
 		case 32:
 			noMap.put(32, noMap.get(32)+1);
 			allNumber.put(32, allNumber.get(32)+1);
+			before5Number.put(32, before5Number.get(32)+1);
+
 			break;
 		case 33:
 			noMap.put(33, noMap.get(33)+1);
 			allNumber.put(33, allNumber.get(33)+1);
+			before5Number.put(33, before5Number.get(33)+1);
+
 			break;
 		case 34:
 			noMap.put(34, noMap.get(34)+1);
 			allNumber.put(34, allNumber.get(34)+1);
+			before5Number.put(34, before5Number.get(34)+1);
+
 			break;
 		case 35:
 			noMap.put(35, noMap.get(35)+1);
 			allNumber.put(35, allNumber.get(35)+1);
+			before5Number.put(35, before5Number.get(35)+1);
+
 			break;
 		default:
 			break;
